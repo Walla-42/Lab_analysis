@@ -1,5 +1,7 @@
 # This program is to showcase the programs that I have developed over the past week. This is a complex program that
-# demonstrates strings, functions, and imports/exports
+# demonstrates strings, functions, and loops
+
+
 # imports for program
 from collections import Counter
 import sys
