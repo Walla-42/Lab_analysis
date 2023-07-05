@@ -6,6 +6,27 @@ import sys
 
 
 # dictionary for functions
+def FrequencyMap(Text, k):
+    freq = {}
+    n = len(Text)
+    for i in range(n - k + 1):
+        Pattern = Text[i:i + k]
+        freq[Pattern] = 0
+        for i in range(n - k + 1):
+            if Text[i:i + k] == Pattern:
+                freq[Pattern] = freq[Pattern] + 1
+    return freq
+
+def Frequent_words(Text, k):
+    words = []
+    freq = FrequencyMap(Text, k)
+    m = max(freq.values())
+    for key in freq:
+        if freq[key] == m:
+            pattern = key
+            words.append(pattern)
+    return words
+    
 def count_bases_RNA():
     seq = Sequence
     return Counter(seq)
@@ -91,20 +112,35 @@ while True:
 
 while True:
     if Sequence_type == "DNA":
-        Work_type = input('Would you like a base count, transcription, or the reverse compliment strand? ')
+        Work_type = input('Would you like a base count, kmer analysis, transcription, or reverse compliment strand?\n Or would you like to try a new sequence? else type END. \n')
         if (Work_type == "base count" or Work_type == "Base Count"
                 or Work_type == "base Count" or Work_type == "Base count"):
             DNA = Sequence_data.get(Header)
             print("This is the count for each base in your sequence:\n " + str(Counter(DNA)))
-            break
+                    
+        elif Work_type == "Kmer Analysis" or Work_type == "kmer Analysis" or Work_type == "kmer analysis":
+            k = input('How many bases should be in your pattern?')
+            print("These are the most frequent repeats: "+ str(Frequent_words(DNA, int(k))))
+             
         elif Work_type == "transcription" or Work_type == "Transcription":
-            print("RNA Sequence:\n" + Transcription(Sequence))
-            break
+           Transcribed_RNA = Transcription(DNA)
+            File_name = input("what should I name the RNA Sequence file? (include file type indicator)")
+            File_Path = input("Where would you like to export your document? (set a file path)")
+            with open(File_Path+'/'+File_name, 'a') as RNA_File:
+                RNA_File.write(Header + " RNA Sequence\n" + Transcribed_RNA + "\n")
+            print("RNA Sequence has been saved in the specified directory.")
+          
         elif (Work_type == "Reverse Compliment Strand" or Work_type == "reverse compliment strand"
               or Work_type == "Reverse compliment Strand" or Work_type == "Reverse Compliment strand"
               or Work_type == "reverse Compliment Strand"):
-            print("Reverse compliment DNA: \n" + reverse_complement_DNA(Sequence))
+            print("Reverse compliment DNA: \n" + reverse_complement_DNA(DNA))
+           
+        elif Work_type == "new Sequence" or "New Sequence" or "new sequence" or "New sequence":
             break
+
+        elif Work_type == "end" or "END" or "End":
+            break
+
         else:
             print('Please enter a valid response.')
     else:
