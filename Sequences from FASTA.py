@@ -123,12 +123,15 @@ while True:
             print("These are the most frequent repeats: "+ str(Frequent_words(DNA, int(k))))
              
         elif Work_type == "transcription" or Work_type == "Transcription":
-           Transcribed_RNA = Transcription(DNA)
-            File_name = input("what should I name the RNA Sequence file? (include file type indicator)")
-            File_Path = input("Where would you like to export your document? (set a file path)")
-            with open(File_Path+'/'+File_name, 'a') as RNA_File:
-                RNA_File.write(Header + " RNA Sequence\n" + Transcribed_RNA + "\n")
-            print("RNA Sequence has been saved in the specified directory.")
+            RNA = Functions.Transcription(DNA)
+            line_length = 70
+            lines = [RNA[i:i + line_length] + '\n' for i in range(0, len(RNA), line_length)]
+            RNA_Complete = ''.join(lines)
+            File_name = input("what should I name the RNA Sequence file?") + ".fna"
+            File_Path = input("Where would you like to export your document?")
+            with open(File_Path + '/' + File_name, 'a') as RNA_File:
+                RNA_File.write(">" + Header + " RNA Sequence\n" + RNA_Complete + "\n")
+                print("RNA Sequence has been saved in the specified directory.")
           
         elif (Work_type == "Reverse Compliment Strand" or Work_type == "reverse compliment strand"
               or Work_type == "Reverse compliment Strand" or Work_type == "Reverse Compliment strand"
@@ -146,18 +149,30 @@ while True:
     else:
         break
 while True:
+    Seq_RNA = Sequence_data.get(Header)
     if Sequence_type == "RNA":
         Work_type = input('Would you like a base count, translation, or the DNA Sequence? ')
         if (Work_type == 'Base Count' or Work_type == 'Base count' or Work_type == 'base count'
                 or Work_type == 'base Count'):
-            print("This is the count for each base in your sequence:\n " + str(count_bases_RNA()))
-            break
+            print("This is the count for each base in your sequence:\n " + str(Functions.count_bases_RNA(Seq_RNA)))
+
         elif Work_type == 'Translation' or Work_type == 'translation':
-            print("Translated RNA:\n " + translate(Sequence))
-            break
+            print("Translated RNA:\n " + Functions.translate(Sequence))
+
         elif Work_type == 'DNA Sequence' or Work_type == 'dna Sequence' or Work_type == 'DNA sequence':
-            print("DNA Sequence:\n " + reverse_sequencing(Sequence))
+            REVDNA = Functions.reverse_sequencing(Seq_RNA)
+            Length_line = 70
+            Line_DNA = [REVDNA[i:i + Length_line] + '\n' for i in range(0, len(REVDNA), Length_line)]
+            DNA_Complete = ''.join(Line_DNA)
+            File_name = input("what should I name the DNA Sequence file?") + ".fna"
+            File_Path = input("Where would you like to export your document? (set a file path)")
+            with open(File_Path + '/' + File_name, 'a') as DNA_File:
+                DNA_File.write(">" + Header + " RNA Sequence\n" + DNA_Complete + "\n")
+                print("DNA Sequence has been saved in the specified directory.")
+
+        elif Work_type == 'Stop' or 'end' or 'End' or 'stop':
             break
+
         else:
             print("Please enter a valid response.")
     else:
