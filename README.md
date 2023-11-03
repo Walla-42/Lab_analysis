@@ -9,3 +9,5 @@ sequences contained in the document and export them to a new document.
 Further projects I have planned include a program that can search for specific sequences and export them to a specified document. 
 
 These features are already available through extenstions like biopython, but these projects are to help me understand and learn python.
+
+I have also posted programs that I have created to analyze potentiometric titration data, perform analytical corrections in data obtained from gas chromatography, and functions that I created for other measurment corrections. 
