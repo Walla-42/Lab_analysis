@@ -54,3 +54,21 @@ def EquivPoint(file,Burret_cal): #Returns the equivelence point for a potentiome
 def closest_index(data_frame, target):
     index = min(range(len(data_frame)), key=lambda i: abs(data_frame[i] - target))
     return index
+
+#This function is what I use to gauge my tax contribution for the 2024 tax year
+def YearlyTax2024(Income):
+    if Income <= 23200:
+        Tax = Income*0.1
+    elif 94300 >= Income > 23200:
+        Tax = ((Income-23200)*.12) + 2320
+    elif 201050 >= Income > 94300:
+        Tax = ((Income-94300)*.22) + 10852
+    elif 383900 >= Income > 201050:
+        Tax = ((Income-201050)*.24) + 34337
+    elif 487450 >= Income > 383900:
+        Tax = ((Income-201050)*.32) + 78221
+    elif 731200 >= Income > 487450:
+        Tax = ((Income-201050)*.35) + 111357
+    else:
+        Tax = ((Income - 731200) * .37) + 196669.50
+    return Tax
