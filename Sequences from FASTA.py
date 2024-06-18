@@ -1,5 +1,3 @@
-# This program is to showcase the programs that I have developed over the past week. This is a complex program that
-# demonstrates strings, functions, and imports/exports
 # imports for program
 from collections import Counter
 import sys
@@ -7,6 +5,8 @@ import sys
 
 # dictionary for functions
 def FrequencyMap(Text, k):
+    """defines frequncy of repeating sequnces of length 'k' and sequence 'text'.
+    Can also be used on normal text, not just sequence data. """
     freq = {}
     n = len(Text)
     for i in range(n - k + 1):
@@ -30,32 +30,39 @@ def Frequent_words(Text, k):
 
 
 def count_bases_RNA(seq):
+    """counts the number of each base in a sequence for RNA"""
     return Counter(seq)
 
 
 def count_bases_DNA(nuc):
+    """counts the number of each base in a sequence for DNA"""
     return Counter(nuc)
 
 
 def reverse_sequencing(rna_sequence):
+    """Gives the reverse sequence for RNA sequences. """
     reverse_sequence = rna_sequence.replace('A', 't').replace('U', 'a').replace(
         'G', 'c').replace('C', 'g').upper()
     return reverse_sequence
 
 
 def reverse_complement_DNA(dna_sequence):
+    """Gives the reverse sequence for DNA sequences"""
     reverse_complement = dna_sequence.replace('A', 't').replace(
         'T', 'a').replace('C', 'g').replace('G', 'c').upper()[::-1]
     return reverse_complement
 
 
 def Transcription(dna_sequence):
+    """Transcribes DNA to RNA"""
     mRNA = dna_sequence.replace('A', 'u').replace('T', 'a').replace('C', 'g').replace(
         'G', 'c').upper()
     return mRNA
 
 
 def translate(seq):
+    """Translates RNA to Protein. Does not account for start and stop codons or different 
+    sequence frames. """
     table = {"UUU": "F", "UUC": "F", "UUA": "L", "UUG": "L",
              "UCU": "S", "UCC": "S", "UCA": "S", "UCG": "S",
              "UAU": "Y", "UAC": "Y", "UAA": "STOP", "UAG": "STOP",
@@ -81,6 +88,7 @@ def translate(seq):
 
 
 def open_and_parse_fasta(filepath):
+    """opens and parses a .fna or .fasta file returning the label for each sequence in the file. """
     FASTA_file = open(f"{filepath}", "r")
     FASTA_dict = {}
     FASTA_label = ""
@@ -89,7 +97,7 @@ def open_and_parse_fasta(filepath):
         if line.startswith(">"):  # catches sequence label
             FASTA_label = line[1:]  # set the label as 1st char and after #set sequence label in dict with empty string
             FASTA_dict[FASTA_label] = ""
-        else:  # must be sequence #add sequence to end of dict entry
+        else:  # must be sequence # add sequence to end of dict entry
             FASTA_dict[FASTA_label] += line
     return FASTA_dict  # function to count base occurrence and print results
 
@@ -108,6 +116,11 @@ while True:
         Sequence_data = open_and_parse_fasta(Directory)
         break
 
+    elif Directory[-6:] == ".FASTA":
+            Sequence_data = open_and_parse_fasta(Directory)
+            break
+    
+# .dna is not currently supported by the open_and_parse_fasta function at this time.
     # elif Directory[-4:] == ".dna":
     #     Sequence_data = open_and_parse_fasta(Directory)
     #     break
@@ -117,8 +130,8 @@ while True:
         print('\033[0m')
 
     else:
-        print('\033[1;31m' + "file type not supported, please use another file.\n Supported file types include: .fna , "
-                             ".seq , .dna" + '\033[0m')
+        print('\033[1;31m' + "file type not supported, please use another file.\n Supported file types include: .fna , .FASTA and"
+                             ".seq" + '\033[0m')
 
 print('\033[1;33m' + "Sequence Received..." + '\033[0m')
 
