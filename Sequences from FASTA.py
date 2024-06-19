@@ -163,16 +163,21 @@ while True:
         Work_type = input('Would you like a base count, kmer analysis, transcription, reverse compliment strand, or to try a new sequence? else type END. \n').lower()
 
         if Work_type == "base count":
-            print("This is the count for each base in your sequence:\n " + '\033[1;32m' + str(Counter(DNA)) + '\033[0m')
+            print("This is the count for each base in your sequence:\n " + '\033[1;32m' + str(Counter(DNA.upper())) + '\033[0m')
 
         elif Work_type == "kmer analysis":
             k = input('How many bases should be in your pattern? ')
-            print('\033[1;33m' + "One moment....processing request." + '\033[0m')
+           
             seq_len = len(Sequence)
-            if seq_len >= 100000:
+            if seq_len < 10000:
+                print('\033[1;33m' + "One moment....processing request." + '\033[0m')
+                print("These are the most frequent repeats: " + '\033[1;32m' + str(Frequent_words(DNA, int(k))) + '\033[0m')
+            elif seq_len >= 10000 and seq_len <= 50000:
                 print('\033[1;33m' + f"This is sequence is {seq_len} bases and may take a while to process. Please stand by..." + '\033[0m')
-
-            print("These are the most frequent repeats: " + '\033[1;32m' + str(Frequent_words(DNA, int(k))) + '\033[0m')
+                print("These are the most frequent repeats: " + '\033[1;32m' + str(Frequent_words(DNA, int(k))) + '\033[0m')
+            else: 
+                print('\033[1;31m' + f"This sequence is {seq_len} bases long and could take hours to analyze. Please consider a shorter sequence." + '\033[0m')
+            
 
         elif Work_type == "transcription":
             RNA = Transcription(DNA)
@@ -241,7 +246,7 @@ while True:
         Work_type = input('Would you like a base count, translation, or the DNA Sequence? ').lower()
 
         if Work_type == 'base count':
-            print("This is the count for each base in your sequence:\n " + count_bases_RNA(Seq_RNA))
+            print("This is the count for each base in your sequence:\n " + count_bases_RNA(Seq_RNA.upper()))
 
         elif Work_type == 'translation':
             print("Translated RNA:\n " + translate(Sequence))
