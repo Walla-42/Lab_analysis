@@ -43,15 +43,54 @@ def THP_BIOID_Time(PMA_Treat_Time, Day=str(date.today())):
 
     return PMA_Media_Exchange, Dox_Induction, Biotin_Treatment, Lysis
 
-# Determine whether I have already started the experiment
-experiment_input = input('\033[35mWill you start your experiment today or another day?\033[0m')
+def HEK_BIOID_Time(Transfection, Day=str(date.today())):
+    """
+    This function calculates the time in which steps should occur for the THP-1 BioID proximity
+    localizaiton assay experiment.
 
-# Determines whether I will use todays date automatically or another date
-if experiment_input.lower() == 'today':
-    THP_BIOID_Time(input('\033[35mWhat time will you start your experiment (HH:MM): \033[0m'))
+    Args:
+        PMA_Treat_Time (str): The treatment start time given in Military time 24-hour format (HH:MM)
+        Day (str): The current day of the treatment (YYY-MM-DD)
+
+    Returns:
+        PMA_Media_Exchange: The time at which you will need to change out the PMA treated RPMI Media for DMEM
+        Dox_induction: The time you will need to start the Dox induction
+        Biotin_Treatment: The time you will need to treat the cells with biotin
+        Lysis: The time in which you will need to start lysing the cells
+    """
+
+    Day_of_week = {
+        0: 'Monday',
+        1: 'Tuesday',
+        2: 'Wednesday', 
+        3: 'Thursday', 
+        4: 'Friday',
+        5: 'Saturday', 
+        6: 'Sunday'
+    }
+
+    Transfection = datetime.strptime(Transfection, "%H:%M")
+    Day = datetime.strptime(Day, "%Y-%m-%d")
+    Exp_Start = datetime.combine(Day, Transfection.time())
+    Dox_Induction = Exp_Start + timedelta(hours=4)
+    Biotin_Treatment = Dox_Induction + timedelta(hours=42)
+    Lysis = Dox_Induction + timedelta(days=2)
+
+    print(f"\033[33mYou will Transfect your HEK293T cells on: \033[0m {Day_of_week[Exp_Start.weekday()]}, {Exp_Start}")
+    print(f"\033[33mDox Induction: \033[0m {Day_of_week[Dox_Induction.weekday()]}, {Dox_Induction}")
+    print(f"\033[33mBiotin_Treatment: \033[0m {Day_of_week[Biotin_Treatment.weekday()]}, {Biotin_Treatment}")
+    print(f"\033[33mLysis: \033[0m {Day_of_week[Lysis.weekday()]}, {Lysis}")
+
+
+PMA_Treat_Time = input('\033[35mWhat time will you start your experiment (HH:MM): \033[0m')
+Day = input('\033[35mWhat day will you start your experiment (YYYY-MM-DD): \033[0m')
+
+if Day.lower() == "today":
+    THP_BIOID_Time(PMA_Treat_Time)
+    print("*"*80)
+    HEK_BIOID_Time(PMA_Treat_Time)
 else:
-    THP_BIOID_Time(input('\033[35mWhat time will you start your experiment (HH:MM): \033[0m'), \
-                   input('\033[35mWhat day will you start your experiment (YYYY-MM-DD): \033[0m'))
-
-
+    THP_BIOID_Time(PMA_Treat_Time, Day)
+    print("*"*80)
+    HEK_BIOID_Time(PMA_Treat_Time, Day)
     
