@@ -2,7 +2,7 @@ from Bio import SeqIO
 
 """User guided sequence that parses a .fna or .fasta file according to how the user would like it analyzed. This program was tested on the 
 genome of the plasmodium falciparum to select specific chromosomes for analysis and export them to a seperate .fna file. This code is part 
-of a much larger 'pipeline' to search for specific sequences in a genome which I am currently working on. """
+of a much larger program to search for specific sequences in a genome which I am currently working on. """
 
 while True:
     fasta_file = input('Enter file path: ')

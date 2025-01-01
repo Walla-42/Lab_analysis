@@ -3,8 +3,6 @@ from collections import Counter
 import sys
 from tqdm import tqdm
 
-# dictionary for functions
-
 
 def FrequencyMap(Text, k):
     """Defines frequency of repeating sequences of length 'k' in sequence 'Text'.
