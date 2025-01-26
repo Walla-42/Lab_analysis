@@ -1,18 +1,44 @@
-The codes contained in this repository are scripts that I have used to analyze my lab data and explore biological and chemical data. 
+# Laboratory Data Analysis Scripts
 
-**<u>Codes:</u>**  
+This repository contains Python scripts I developed to analyze laboratory data and explore biological and chemical datasets. Each script reflects my progress in learning Python and its application to solving practical problems in biology and chemistry.
 
-**BIOID_Time_Calculator:** This script is to help me determine the time points where I must perform specific parts of my experiment. This also helped me learn the date/time module.  
+## Scripts Overview
 
-**Chem_functions:** These are funcitions I used daily in my analytical chemistry lab. Functions included are bouyancy correction, density calculator, and an equivalency point calculatory for potentiometric titrations.   
+### 1. **BIOID_Time_Calculator**
+   - A utility script to calculate time points for performing specific experimental steps in BIOID assays.
+   - Helped me learn and implement the `datetime` module in Python.
 
-**fna_parse:** This script contains a function I created to parse .fna files that contain multiple DNA files. It allows you to also select the dna file you want to work with and saves it as its own .fna file for future analysis.  
+### 2. **Chem_Functions**
+   - A collection of functions I used regularly in my analytical chemistry lab, including:
+     - Buoyancy correction.
+     - Density calculation.
+     - Equivalence point calculation for potentiometric titrations.
 
-**Integration:** This script recreates the functions used to calculate the area under a curve. This file recreates the trapizoidal rule of integration and the simpsons rule of integration.   
+### 3. **FNA_Parse**
+   - A parser for `.fna` files containing multiple DNA sequences.
+   - Allows users to select specific DNA sequences and save them as separate `.fna` files for future analysis.
 
-**Sequences_from_FASTA:** This script allows you to analyze a DNA, RNA or protein sequence from a fasta file and perform actions such as transcribe, analyze k-mers, give the reverse complement strand and more. This program was one of my first programs I worked on while learning python.   
+### 4. **Integration**
+   - Implements numerical integration techniques to calculate the area under a curve:
+     - Trapezoidal rule.
+     - Simpson's rule.
 
-**single_exon_gene_search:** This program takes a genome file and a protein sequences and analyzes the two to find a match within the genome. This program only works for sequences that are created by single exons, and have no post transcriptional/tranlational modifictions. Although it is very limited in its use, it was a stepping stone to help me learn more about the Biopython library.   
+### 5. **Sequences_from_FASTA**
+   - Analyzes DNA, RNA, or protein sequences from a FASTA file.
+   - Features include:
+     - Transcription of DNA to RNA.
+     - k-mer analysis.
+     - Reverse complement strand generation.
+   - One of my first Python programs, marking the start of my programming journey.
 
+### 6. **Single_Exon_Gene_Search**
+   - Compares genome files with protein sequences to find matches.
+   - Specifically designed for single-exon genes without post-transcriptional or post-translational modifications.
+   - A stepping stone project to explore the Biopython library.
 
-***As I create more programs and learn more languages, I will update this repository. This is like a running portfolio detailing my journey in learning programing approaches to solving chemical and biological problems. ***
+## Notes
+
+- As I continue to develop more programs and learn additional languages, I will update this repository.
+- This repository serves as a running portfolio, documenting my journey in applying programming approaches to solve biological and chemical problems.
+
+Feedback and suggestions are always welcome!
